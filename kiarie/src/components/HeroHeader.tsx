@@ -35,7 +35,7 @@ const HeroHeader: FC = () => {
             className="order-1 md:order-2 relative flex justify-start md:justify-center"
             style={{ transform: `translateY(${yTransform * 0.5}px)` }}
           >
-            <div className="relative aspect-square w-[150px] sm:w-[180px] md:max-w-sm overflow-hidden rounded-2xl">
+            <div className="relative aspect-square w-[150px] sm:w-[180px] md:max-w-sm overflow-hidden">
               <Image 
                 src="/profile.png" 
                 alt="Irene Kiarie"
@@ -43,10 +43,9 @@ const HeroHeader: FC = () => {
                 sizes="(max-width: 640px) 150px, (max-width: 768px) 180px, 350px"
                 priority
                 style={{ objectFit: "cover" }}
-                className="rounded-2xl"
               />
               <motion.div 
-                className="absolute inset-0 border-4 border-black/5 rounded-2xl"
+                className="absolute inset-0 border-4 border-black/5"
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 transition={{ duration: 1.2, delay: 0.8 }}
@@ -55,7 +54,7 @@ const HeroHeader: FC = () => {
             
             {/* Decorative element */}
             <motion.div 
-              className="absolute -z-10 w-full h-full top-4 left-4 bg-amber-50/50 rounded-2xl hidden md:block"
+              className="absolute -z-10 w-full h-full top-4 left-4 bg-amber-50/50 hidden md:block"
               initial={{ opacity: 0, x: 20, y: 20 }}
               animate={{ opacity: 1, x: 0, y: 0 }}
               transition={{ duration: 0.8, delay: 0.9 }}
@@ -70,10 +69,10 @@ const HeroHeader: FC = () => {
             className="order-2 md:order-1 md:pr-8 text-right md:text-left"
             style={{ transform: `translateY(${-yTransform}px)` }}
           >
-            <h1 className="text-7xl sm:text-8xl md:text-8xl xl:text-9xl font-light tracking-tight mb-4 sm:mb-6">
-              Irene Kiarie
+            <h1 className="text-bold text-7xl sm:text-8xl md:text-9xl xl:text-[12rem] 2xl:text-[14rem] font-light tracking-tight mb-4 sm:mb-6 leading-[0.9] font-['Neue_Haas_Grotesk']">
+            IRENE KIARIE
             </h1>
-            <p className="text-2xl sm:text-3xl md:text-3xl font-light text-gray-600 mb-6 sm:mb-8">
+            <p className="text-2xl sm:text-3xl md:text-4xl font-light text-gray-600 mb-6 sm:mb-8">
               Interior Designer
             </p>
             <p className="text-lg md:text-xl text-gray-700 mb-8 ml-auto md:ml-0 max-w-md">

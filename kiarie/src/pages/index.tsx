@@ -1,7 +1,7 @@
 import { useState } from "react";
 import Head from "next/head";
 import { Geist, Geist_Mono } from "next/font/google";
-import { Navigation, Projects, About, Contact, Footer, HeroHeader } from "../components";
+import { Navigation, Projects, About, Footer, HeroHeader } from "../components";
 import { projects } from "../data/projects";
 import { motion } from "framer-motion";
 
@@ -70,9 +70,6 @@ export default function Home() {
           <About />
         </motion.div>
         
-        <motion.div variants={itemVariants}>
-          <Contact />
-        </motion.div>
         
         <motion.div variants={itemVariants}>
           <Footer />

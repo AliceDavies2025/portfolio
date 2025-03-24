@@ -26,7 +26,7 @@ const ProjectSlider: FC<ProjectSliderProps> = ({ project, autoSlideInterval = 40
   };
 
   return (
-    <div className="relative w-full aspect-square overflow-hidden rounded-lg group">
+    <div className="relative w-full aspect-square overflow-hidden group">
       {/* Image container with transition effect */}
       <div className="relative h-full w-full">
         {images.map((image, index) => (
