@@ -4,6 +4,7 @@ import { Geist, Geist_Mono } from "next/font/google";
 import { Navigation, Projects, About, Footer, HeroHeader, CaseStudyShowcase } from "../components";
 import { projects } from "../data/projects";
 import { motion } from "framer-motion";
+import { useRouter } from 'next/router';
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -16,6 +17,7 @@ const geistMono = Geist_Mono({
 });
 
 export default function Home() {
+  const router = useRouter();
   const [activeSection, setActiveSection] = useState("home");
 
   // Stagger the animation of content sections
