@@ -6,3 +6,4 @@ export { default as ProjectSlider } from './ProjectSlider';
 export { default as AnimatedLayout } from './AnimatedLayout';
 export { default as Logo } from './Logo';
 export { default as HeroHeader } from './HeroHeader';
+export { default as CaseStudyShowcase } from './CaseStudyShowcase';

@@ -24,7 +24,7 @@ const Navigation: FC<NavigationProps> = ({ activeSection, setActiveSection }) =>
     closeMobileMenu();
   };
 
-  // Animation variants for menu items
+  // Animation variants for menu items - refined for more elegance
   const menuItemVariants = {
     hidden: { opacity: 0, y: -10 },
     visible: (i: number) => ({
@@ -32,16 +32,15 @@ const Navigation: FC<NavigationProps> = ({ activeSection, setActiveSection }) =>
       y: 0,
       transition: {
         delay: i * 0.1,
-        duration: 0.3,
-        ease: "easeOut"
+        duration: 0.4,
+        ease: [0.2, 0.65, 0.3, 0.9] // Custom easing for smooth elegance
       }
     }),
     hover: { 
-      scale: 1.05, 
-      x: 5,
-      transition: { type: "spring", stiffness: 400 }
+      y: -2,
+      transition: { type: "spring", stiffness: 300, damping: 15 }
     },
-    tap: { scale: 0.95 }
+    tap: { scale: 0.98 }
   };
 
   // Animation variants for mobile menu
@@ -112,7 +111,7 @@ const Navigation: FC<NavigationProps> = ({ activeSection, setActiveSection }) =>
         
         {/* Desktop Navigation - Hidden on mobile */}
         <motion.div 
-          className="hidden md:flex gap-8"
+          className="hidden md:flex gap-10 items-center"
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ delay: 0.2 }}
@@ -126,22 +125,26 @@ const Navigation: FC<NavigationProps> = ({ activeSection, setActiveSection }) =>
               animate="visible"
               whileHover="hover"
               whileTap="tap"
+              className="relative py-1"
             >
               <Link 
                 href={section === 'home' ? '/' : `/${section}`}
                 onClick={() => setActiveSection(section)}
-                className={`${activeSection === section ? "font-medium" : "text-gray-500"} relative hover:text-black transition-colors`}
+                className={`${
+                  activeSection === section 
+                    ? "text-black font-normal" 
+                    : "text-gray-500"
+                } relative tracking-wide uppercase text-sm hover:text-black transition-all duration-300`}
               >
-                <span className="capitalize">{section}</span>
+                <span className="capitalize block px-2">{section}</span>
                 {activeSection === section && (
                   <motion.span 
-                    className="absolute -bottom-1 left-0 right-0 h-0.5 bg-black"
+                    className="absolute -bottom-1 left-0 right-0 h-[2px] bg-gradient-to-r from-transparent via-black to-transparent"
                     layoutId="navIndicator"
                     transition={{ 
                       type: "spring", 
-                      stiffness: 500, 
-                      damping: 30,
-                      mass: 1
+                      stiffness: 400, 
+                      damping: 25
                     }}
                   />
                 )}
@@ -202,23 +205,35 @@ const Navigation: FC<NavigationProps> = ({ activeSection, setActiveSection }) =>
             animate="visible"
             exit="hidden"
           >
-            <div className="flex flex-col items-center gap-8 text-xl">
+            <div className="flex flex-col items-center gap-10 text-xl">
               {['home', 'projects', 'about', 'contact'].map((section, i) => (
                 <motion.div
                   key={section}
                   variants={mobileMenuItemVariants}
-                  whileHover={{ scale: 1.1 }}
+                  whileHover={{ scale: 1.05, y: -5 }}
                   whileTap={{ scale: 0.95 }}
+                  className="overflow-hidden"
                 >
                   <Link 
                     href={section === 'home' ? '/' : `/${section}`}
                     onClick={() => handleNavigation(section)}
-                    className={`py-3 px-5 ${activeSection === section ? "font-medium" : "text-gray-600"}`}
+                    className={`relative py-2 px-6 uppercase tracking-wider ${
+                      activeSection === section 
+                        ? "text-black after:absolute after:bottom-0 after:left-1/4 after:right-1/4 after:h-[1px] after:bg-black" 
+                        : "text-gray-600"
+                    } transition-all duration-300`}
                   >
-                    <span className="capitalize">{section}</span>
+                    <span className="capitalize block">{section}</span>
                   </Link>
                 </motion.div>
               ))}
+              <Link 
+                href="/projects"
+                className="bg-black text-white px-8 py-3 rounded-full hover:bg-black/90 transition-colors shadow-md"
+                onClick={closeMobileMenu}
+              >
+                View My Work
+              </Link>
             </div>
           </motion.div>
         )}

@@ -1,7 +1,7 @@
 import { useState } from "react";
 import Head from "next/head";
 import { Geist, Geist_Mono } from "next/font/google";
-import { Navigation, Projects, About, Footer, HeroHeader } from "../components";
+import { Navigation, Projects, About, Footer, HeroHeader, CaseStudyShowcase } from "../components";
 import { projects } from "../data/projects";
 import { motion } from "framer-motion";
 
@@ -64,6 +64,16 @@ export default function Home() {
       >
         <motion.div variants={itemVariants}>
           <Projects projects={projects} />
+        </motion.div>
+        
+        {/* Add Case Study section */}
+        <motion.div variants={itemVariants}>
+          <CaseStudyShowcase 
+            id="lightly"
+            title="Lightly"
+            description=""
+            imageUrl="/images/lightly.png"
+          />
         </motion.div>
         
         <motion.div variants={itemVariants}>

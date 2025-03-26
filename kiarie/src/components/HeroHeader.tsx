@@ -1,6 +1,16 @@
 import { FC, useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
 import Image from 'next/image';
+import Link from 'next/link';
+import { Poppins } from 'next/font/google'; // Import Poppins font
+
+// Configure Poppins font with desired weights
+const poppins = Poppins({
+  subsets: ['latin'],
+  weight: ['300', '400', '500', '700'],
+  display: 'swap',
+  variable: '--font-poppins',
+});
 
 const HeroHeader: FC = () => {
   const [scrollY, setScrollY] = useState(0);
@@ -20,7 +30,7 @@ const HeroHeader: FC = () => {
   
   return (
     <motion.section 
-      className="relative min-h-screen flex items-center px-5 sm:px-8 md:px-16 lg:px-24"
+      className={`relative min-h-screen flex items-center px-5 sm:px-8 md:px-16 lg:px-24 ${poppins.variable}`}
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       transition={{ duration: 1 }}
@@ -35,7 +45,7 @@ const HeroHeader: FC = () => {
             className="order-1 md:order-2 relative flex justify-start md:justify-center"
             style={{ transform: `translateY(${yTransform * 0.5}px)` }}
           >
-            <div className="relative aspect-square w-[150px] sm:w-[180px] md:max-w-sm overflow-hidden">
+            <div className="relative aspect-square w-[150px] sm:w-[180px] md:max-w-sm overflow-hidden rounded-full shadow-[0_8px_30px_rgb(0,0,0,0.12),0_15px_25px_-12px_rgb(0,0,0,0.25)] hover:shadow-[0_8px_35px_rgb(0,0,0,0.16),0_20px_35px_-12px_rgb(0,0,0,0.35)] transition-shadow duration-500">
               <Image 
                 src="/profile.png" 
                 alt="Irene Kiarie"
@@ -43,9 +53,10 @@ const HeroHeader: FC = () => {
                 sizes="(max-width: 640px) 150px, (max-width: 768px) 180px, 350px"
                 priority
                 style={{ objectFit: "cover" }}
+                className="rounded-full"
               />
               <motion.div 
-                className="absolute inset-0 border-4 border-black/5"
+                className="absolute inset-0 border-4 border-black/5 rounded-full"
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 transition={{ duration: 1.2, delay: 0.8 }}
@@ -54,7 +65,7 @@ const HeroHeader: FC = () => {
             
             {/* Decorative element */}
             <motion.div 
-              className="absolute -z-10 w-full h-full top-4 left-4 bg-amber-50/50 hidden md:block"
+              className="absolute -z-10 w-full h-full top-4 left-4 bg-amber-50/50 rounded-full hidden md:block"
               initial={{ opacity: 0, x: 20, y: 20 }}
               animate={{ opacity: 1, x: 0, y: 0 }}
               transition={{ duration: 0.8, delay: 0.9 }}
@@ -69,7 +80,7 @@ const HeroHeader: FC = () => {
             className="order-2 md:order-1 md:pr-8 text-right md:text-left"
             style={{ transform: `translateY(${-yTransform}px)` }}
           >
-            <h1 className="text-bold text-7xl sm:text-8xl md:text-9xl xl:text-[12rem] 2xl:text-[14rem] font-light tracking-tight mb-4 sm:mb-6 leading-[0.9] font-['Neue_Haas_Grotesk']">
+            <h1 className="text-bold text-7xl sm:text-8xl md:text-9xl xl:text-[12rem] 2xl:text-[14rem] font-black tracking-tight mb-4 sm:mb-6 leading-[0.9] font-poppins">
             IRENE KIARIE
             </h1>
             <p className="text-2xl sm:text-3xl md:text-4xl font-light text-gray-600 mb-6 sm:mb-8">
@@ -86,12 +97,12 @@ const HeroHeader: FC = () => {
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
               >
-                <button 
-                  onClick={() => window.scrollTo({top: window.innerHeight, behavior: 'smooth'})}
-                  className="bg-black text-white px-8 py-3 rounded-full hover:bg-gray-800 transition-colors"
+                <Link 
+                  href="/projects"
+                  className="bg-black text-white px-8 py-3 rounded-full hover:bg-gray-800 transition-colors inline-block"
                 >
                   View My Work
-                </button>
+                </Link>
               </motion.div>
             </div>
           </motion.div>
