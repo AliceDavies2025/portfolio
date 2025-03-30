@@ -22,7 +22,7 @@ export default function ProjectsPage() {
     <div className={`min-h-screen ${geistSans.variable} ${geistMono.variable}`}>
       <Head>
         <title>Projects | Kiarie Interior Design Portfolio</title>
-        <meta name="description" content="Browse our collection of interior design projects" />
+        <meta name="description" content="Browse the collection of interior design projects" />
       </Head>
 
       <Navigation 
@@ -32,41 +32,43 @@ export default function ProjectsPage() {
       
       <section className="pt-32 pb-20 px-4 md:px-16 lg:px-24">
         <div className="max-w-6xl mx-auto">
-          <h1 className="text-4xl md:text-6xl font-light mb-8">Our Projects</h1>
+          <h1 className="text-4xl md:text-6xl font-light mb-8">Projects</h1>
           <p className="text-lg text-gray-600 max-w-2xl mb-12 md:mb-16">
-            Explore our portfolio of carefully crafted interior spaces that embody our philosophy of 
+            Explore my portfolio of carefully crafted interior spaces that embody my philosophy of 
             blending aesthetics with functionality.
           </p>
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-12">
-            {projects.map((project) => (
-              <div key={project.id} className="project-card">
-                {/* The project card container - make entire card clickable */}
-                <Link href={`/project/${project.slug}`} className="block cursor-pointer group">
-                  {/* Slider with project images */}
-                  <div className="relative overflow-hidden">
-                    <ProjectSlider project={project} />
-                    {/* Overlay with view text */}
-                    <div className="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition-colors duration-300 flex items-center justify-center">
-                      <span className="text-white opacity-0 group-hover:opacity-100 transition-opacity duration-300 bg-black/60 px-5 py-2 rounded-full text-sm">
-                        View Project Gallery
-                      </span>
+            {projects.map((project, index) => {
+              // Check if this is the last project (Freelance project)
+              const isLastProject = index === projects.length - 1;
+              
+              return (
+                <div 
+                  key={project.id} 
+                  className={`project-card ${isLastProject ? 'md:col-span-2 lg:w-2/3 lg:mx-auto' : ''}`}
+                >
+                  {/* The project card container - make entire card clickable */}
+                  <Link href={`/project/${project.slug}`} className="block cursor-pointer group">
+                    {/* Slider with project images - no hover effects */}
+                    <div className="relative overflow-hidden">
+                      <ProjectSlider project={project} />
                     </div>
-                  </div>
-                  
-                  {/* Project info with clickable title */}
-                  <div className="mt-4 flex justify-between items-start">
-                    <div>
-                      <h3 className="block text-xl md:text-2xl font-medium group-hover:text-amber-800 transition-colors">
-                        {project.title}
-                      </h3>
-                      <p className="text-gray-600">{project.description}</p>
+                    
+                    {/* Project info with clickable title */}
+                    <div className="mt-4 flex justify-between items-start">
+                      <div>
+                        <h3 className="block text-xl md:text-2xl font-medium group-hover:text-amber-800 transition-colors">
+                          {project.title}
+                        </h3>
+                        <p className="text-gray-600">{project.description}</p>
+                      </div>
+                      <span className="text-sm text-gray-400">{project.year}</span>
                     </div>
-                    <span className="text-sm text-gray-400">{project.year}</span>
-                  </div>
-                </Link>
-              </div>
-            ))}
+                  </Link>
+                </div>
+              );
+            })}
           </div>
 
         </div>

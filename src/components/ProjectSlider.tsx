@@ -5,9 +5,10 @@ import { Project } from '../data/projects';
 interface ProjectSliderProps {
   project: Project;
   autoSlideInterval?: number;
+  disableHoverEffects?: boolean;
 }
 
-const ProjectSlider: FC<ProjectSliderProps> = ({ project, autoSlideInterval = 4000 }) => {
+const ProjectSlider: FC<ProjectSliderProps> = ({ project, autoSlideInterval = 4000, disableHoverEffects = false }) => {
   const images = project.gallery || [project.imageUrl];
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
 
@@ -26,7 +27,15 @@ const ProjectSlider: FC<ProjectSliderProps> = ({ project, autoSlideInterval = 40
   };
 
   return (
-    <div className="relative w-full aspect-square overflow-hidden group">
+    <div className={`relative w-full aspect-square overflow-hidden group ${disableHoverEffects ? 'hover:transform-none' : ''}`}>
+      {/* Apply any CSS necessary to prevent hover effects */}
+      <style jsx>{`
+        .hover\\:transform-none:hover > * {
+          transform: none !important;
+          transition: none !important;
+        }
+      `}</style>
+      
       {/* Image container with transition effect */}
       <div className="relative h-full w-full">
         {images.map((image, index) => (
@@ -41,7 +50,7 @@ const ProjectSlider: FC<ProjectSliderProps> = ({ project, autoSlideInterval = 40
               alt={`${project.title} - Image ${index + 1}`}
               fill
               style={{ objectFit: "cover" }}
-              className="transition-transform duration-700 group-hover:scale-105"
+              className="transition-opacity duration-700" // Removed group-hover:scale-105
             />
           </div>
         ))}

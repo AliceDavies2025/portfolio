@@ -16,6 +16,57 @@ const geistMono = Geist_Mono({
 
 export default function ContactPage() {
   const [activeSection, setActiveSection] = useState("contact");
+  const [formStatus, setFormStatus] = useState({
+    submitting: false,
+    submitted: false,
+    error: false
+  });
+  const [formData, setFormData] = useState({
+    name: "",
+    email: "",
+    project: ""
+  });
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    const { id, value } = e.target;
+    setFormData(prev => ({
+      ...prev,
+      [id]: value
+    }));
+  };
+
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    setFormStatus({ submitting: true, submitted: false, error: false });
+    
+    try {
+      // Using FormSubmit.co service
+      const response = await fetch("https://formsubmit.co/irene.kiarie4@gmail.com", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Accept: "application/json"
+        },
+        body: JSON.stringify({
+          name: formData.name,
+          email: formData.email,
+          message: formData.project,
+          _subject: "New Design Inquiry from Website",
+          _template: "table"
+        })
+      });
+      
+      if (response.ok) {
+        setFormStatus({ submitting: false, submitted: true, error: false });
+        setFormData({ name: "", email: "", project: "" });
+      } else {
+        throw new Error("Form submission failed");
+      }
+    } catch (error) {
+      console.error("Form error:", error);
+      setFormStatus({ submitting: false, submitted: false, error: true });
+    }
+  };
 
   return (
     <div className={`min-h-screen ${geistSans.variable} ${geistMono.variable}`}>
@@ -71,9 +122,7 @@ export default function ContactPage() {
                 <div>
                   <h2 className="text-3xl mb-4 font-light">Follow</h2>
                   <div className="flex gap-6">
-                    <a href="#" className="text-xl hover:text-amber-600 transition-colors">Instagram</a>
-                    <a href="#" className="text-xl hover:text-amber-600 transition-colors">LinkedIn</a>
-                    <a href="#" className="text-xl hover:text-amber-600 transition-colors">Pinterest</a>
+                    <a href="https://www.linkedin.com/in/irene-wanjiku-kiarie-13ab2b332/" className="text-xl hover:text-amber-600 transition-colors">LinkedIn</a>
                   </div>
                 </div>
               </div>
@@ -84,43 +133,75 @@ export default function ContactPage() {
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.7, delay: 0.3 }}
             >
-              <form className="space-y-8">
-                <div>
-                  <label htmlFor="name" className="block text-2xl mb-3">Name</label>
-                  <input 
-                    type="text" 
-                    id="name" 
-                    className="w-full p-4 text-xl border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-black/20" 
-                  />
-                </div>
-                
-                <div>
-                  <label htmlFor="email" className="block text-2xl mb-3">Email</label>
-                  <input 
-                    type="email" 
-                    id="email" 
-                    className="w-full p-4 text-xl border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-black/20" 
-                  />
-                </div>
-                
-                <div>
-                  <label htmlFor="project" className="block text-2xl mb-3">Project Details</label>
-                  <textarea 
-                    id="project" 
-                    rows={6} 
-                    className="w-full p-4 text-xl border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-black/20"
-                  ></textarea>
-                </div>
-                
-                <motion.button 
-                  type="submit" 
-                  className="bg-black text-white text-xl px-10 py-4 rounded-full hover:bg-gray-800 transition-colors"
-                  whileHover={{ scale: 1.05 }}
-                  whileTap={{ scale: 0.95 }}
+              {formStatus.submitted ? (
+                <motion.div 
+                  className="bg-green-50 border border-green-200 rounded-lg p-8 text-center"
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
                 >
-                  Send Message
-                </motion.button>
-              </form>
+                  <h3 className="text-3xl font-light text-green-800 mb-4">Thank You!</h3>
+                  <p className="text-xl text-green-700">
+                    Your message has been sent successfully. I'll get back to you as soon as possible.
+                  </p>
+                </motion.div>
+              ) : (
+                <form className="space-y-8" onSubmit={handleSubmit}>
+                  <div>
+                    <label htmlFor="name" className="block text-2xl mb-3">Name</label>
+                    <input 
+                      type="text" 
+                      id="name" 
+                      required
+                      value={formData.name}
+                      onChange={handleChange}
+                      className="w-full p-4 text-xl border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-black/20" 
+                    />
+                  </div>
+                  
+                  <div>
+                    <label htmlFor="email" className="block text-2xl mb-3">Email</label>
+                    <input 
+                      type="email" 
+                      id="email" 
+                      required
+                      value={formData.email}
+                      onChange={handleChange}
+                      className="w-full p-4 text-xl border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-black/20" 
+                    />
+                  </div>
+                  
+                  <div>
+                    <label htmlFor="project" className="block text-2xl mb-3">Project Details</label>
+                    <textarea 
+                      id="project" 
+                      rows={6}
+                      required
+                      value={formData.project}
+                      onChange={handleChange}
+                      className="w-full p-4 text-xl border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-black/20"
+                    ></textarea>
+                  </div>
+                  
+                  {formStatus.error && (
+                    <div className="text-red-600 text-xl">
+                      There was a problem sending your message. Please try again.
+                    </div>
+                  )}
+                  
+                  <motion.button 
+                    type="submit" 
+                    disabled={formStatus.submitting}
+                    className={`
+                      bg-black text-white text-xl px-10 py-4 rounded-full 
+                      transition-colors ${formStatus.submitting ? 'bg-gray-500' : 'hover:bg-gray-800'}
+                    `}
+                    whileHover={{ scale: formStatus.submitting ? 1 : 1.05 }}
+                    whileTap={{ scale: formStatus.submitting ? 1 : 0.95 }}
+                  >
+                    {formStatus.submitting ? 'Sending...' : 'Send Message'}
+                  </motion.button>
+                </form>
+              )}
             </motion.div>
           </div>
         </div>

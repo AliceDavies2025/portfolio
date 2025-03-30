@@ -162,7 +162,7 @@ export default function AboutPage() {
               </Link>
               
               <motion.a
-                href="/CV/Irene.W.Kiarie CV.pdf" 
+                href="/CV/Irene.K CV .pdf" 
                 download
                 className="inline-flex items-center gap-2 border-2 border-black px-8 py-4 text-lg font-light tracking-wide rounded-full hover:bg-black hover:text-white transition-all duration-300"
                 whileHover={{ scale: 1.05 }}

@@ -1,6 +1,8 @@
 import { FC } from 'react';
 import Logo from './Logo';
 import Link from 'next/link';
+import { motion } from 'framer-motion';
+import { Linkedin as LinkedinIcon } from 'lucide-react'; // Using lucide-react instead
 
 const Footer: FC = () => {
   return (
@@ -51,9 +53,14 @@ const Footer: FC = () => {
         <div className="pt-8 border-t border-gray-800 flex flex-col md:flex-row justify-between items-center gap-4">
           <p className="text-gray-500 text-sm">© {new Date().getFullYear()} Irene Kiarie. All rights reserved.</p>
           <div className="flex gap-6">
-            <a href="#" className="text-sm text-gray-500 hover:text-amber-400 transition-colors">Instagram</a>
-            <a href="#" className="text-sm text-gray-500 hover:text-amber-400 transition-colors">Pinterest</a>
-            <a href="#" className="text-sm text-gray-500 hover:text-amber-400 transition-colors">LinkedIn</a>
+            <a href="https://www.linkedin.com/in/irene-wanjiku-kiarie-13ab2b332/" 
+              className="text-sm text-gray-500 hover:text-amber-400 transition-colors flex items-center gap-2 group"
+              target="_blank" 
+              rel="noopener noreferrer"
+            >
+              <LinkedinIcon size={24} className="group-hover:text-amber-400 transition-colors" />
+              <span>LinkedIn</span>
+            </a>
           </div>
         </div>
       </div>

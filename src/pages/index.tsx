@@ -1,7 +1,8 @@
 import { useState } from "react";
 import Head from "next/head";
 import { Geist, Geist_Mono } from "next/font/google";
-import { Navigation, Projects, About, Footer, HeroHeader, CaseStudyShowcase } from "../components";
+// Remove About from the imports
+import { Navigation, Projects, Footer, HeroHeader, CaseStudyShowcase } from "../components";
 import { projects } from "../data/projects";
 import { motion } from "framer-motion";
 import { useRouter } from 'next/router';
@@ -78,10 +79,7 @@ export default function Home() {
           />
         </motion.div>
         
-        <motion.div variants={itemVariants}>
-          <About />
-        </motion.div>
-        
+        {/* Remove the About section completely */}
         
         <motion.div variants={itemVariants}>
           <Footer />

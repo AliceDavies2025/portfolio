@@ -1,6 +1,5 @@
 import { FC, useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
-import Image from 'next/image';
 import Link from 'next/link';
 import { Poppins } from 'next/font/google'; // Import Poppins font
 
@@ -36,55 +35,38 @@ const HeroHeader: FC = () => {
       transition={{ duration: 1 }}
     >
       <div className="max-w-6xl mx-auto w-full pt-24 pb-8">
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-16 items-center">
-          {/* Profile Image - positioned at top left on mobile */}
+        {/* Increased spacing between grid items with gap-12 (was gap-8) */}
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-12 md:gap-16 items-center">
+          {/* Quote section with position higher on mobile */}
           <motion.div
             initial={{ opacity: 0, scale: 0.9 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ duration: 0.8, delay: 0.5 }}
-            className="order-1 md:order-2 relative flex justify-start md:justify-center"
+            className="order-2 md:order-2 relative pt-2 -mt-12 sm:-mt-16 md:mt-0 md:pt-0 md:pl-8 lg:pl-16" 
             style={{ transform: `translateY(${yTransform * 0.5}px)` }}
           >
-            <div className="relative aspect-square w-[150px] sm:w-[180px] md:max-w-sm overflow-hidden rounded-full shadow-[0_8px_30px_rgb(0,0,0,0.12),0_15px_25px_-12px_rgb(0,0,0,0.25)] hover:shadow-[0_8px_35px_rgb(0,0,0,0.16),0_20px_35px_-12px_rgb(0,0,0,0.35)] transition-shadow duration-500">
-              <Image 
-                src="/profile.png" 
-                alt="Irene Kiarie"
-                fill
-                sizes="(max-width: 640px) 150px, (max-width: 768px) 180px, 350px"
-                priority
-                style={{ objectFit: "cover" }}
-                className="rounded-full"
-              />
-              <motion.div 
-                className="absolute inset-0 border-4 border-black/5 rounded-full"
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                transition={{ duration: 1.2, delay: 0.8 }}
-              />
+            <div className="space-y-4 text-center md:text-left p-8 border-l-4 border-amber-50 bg-gray-50/30">
+              <p className="text-2xl md:text-3xl text-gray-700 italic font-light leading-relaxed">
+                "Design is thinking made visual."
+              </p>
+              <p className="text-xl text-gray-500">— Saul Bass</p>
             </div>
-            
-            {/* Decorative element */}
-            <motion.div 
-              className="absolute -z-10 w-full h-full top-4 left-4 bg-amber-50/50 rounded-full hidden md:block"
-              initial={{ opacity: 0, x: 20, y: 20 }}
-              animate={{ opacity: 1, x: 0, y: 0 }}
-              transition={{ duration: 0.8, delay: 0.9 }}
-            />
           </motion.div>
           
-          {/* Text Content */}
+          {/* Text Content section */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.3 }}
-            className="order-2 md:order-1 md:pr-8 text-right md:text-left"
+            className="order-1 md:order-1 md:pr-8 text-right md:text-left" 
             style={{ transform: `translateY(${-yTransform}px)` }}
           >
             <h1 className="text-bold text-7xl sm:text-8xl md:text-9xl xl:text-[12rem] 2xl:text-[14rem] font-black tracking-tight mb-4 sm:mb-6 leading-[0.9] font-poppins">
-            IRENE KIARIE
+              Irene Kiarie
             </h1>
+            {/* Updated title to include both roles */}
             <p className="text-2xl sm:text-3xl md:text-4xl font-light text-gray-600 mb-6 sm:mb-8">
-              Interior Designer
+              Interior Designer | UX/UI Designer
             </p>
             <p className="text-lg md:text-xl text-gray-700 mb-8 ml-auto md:ml-0 max-w-md">
               Creating beautiful, functional spaces that inspire and enhance life's everyday moments.

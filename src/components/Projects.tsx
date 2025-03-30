@@ -23,17 +23,17 @@ const Projects: FC<ProjectsProps> = ({ projects }) => {
         </motion.h2>
         
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8">
-          {projects.map((project, index) => (
+          {projects.slice(0, 4).map((project, index) => (
             <motion.div 
               key={project.id} 
-              className="group"
+              className="project-item" // Removed 'group' class that might trigger hover effects
               initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: "-100px" }}
               transition={{ duration: 0.6, delay: index * 0.2 }}
             >
-              <Link href={`/project/${project.slug}`}>
-                <ProjectSlider project={project} />
+              <Link href={`/project/${project.slug}`} className="block overflow-hidden">
+                <ProjectSlider project={project} disableHoverEffects={true} />
               </Link>
               <div className="mt-4 flex justify-between items-start">
                 <div>
