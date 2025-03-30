@@ -1,25 +1,19 @@
 import type { AppProps } from 'next/app';
+import Head from 'next/head';
 import { AnimatedLayout } from '../components';
-import { Geist, Geist_Mono } from "next/font/google";
 import '../styles/globals.css';
-
-const geistSans = Geist({
-  variable: "--font-geist-sans",
-  subsets: ["latin"],
-});
-
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
-});
 
 function MyApp({ Component, pageProps }: AppProps) {
   return (
-    <div className={`${geistSans.variable} ${geistMono.variable}`}>
+    <>
+      <Head>
+        {/* Add favicon directly in _app for higher priority */}
+        <link rel="icon" href="/favicon.ico" />
+      </Head>
       <AnimatedLayout>
         <Component {...pageProps} />
       </AnimatedLayout>
-    </div>
+    </>
   );
 }
 

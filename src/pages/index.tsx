@@ -44,7 +44,7 @@ export default function Home() {
   return (
     <div className={`min-h-screen ${geistSans.variable} ${geistMono.variable}`}>
       <Head>
-        <title>Irene Kiarie | Interior Design Portfolio</title>
+        <title>Irene Kiarie | Interior Designer | UI/UX Designer</title>
         <meta name="description" content="Interior design portfolio showcasing elegant, functional spaces" />
       </Head>
 

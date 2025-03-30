@@ -34,7 +34,7 @@ const HeroHeader: FC = () => {
       animate={{ opacity: 1 }}
       transition={{ duration: 1 }}
     >
-      <div className="max-w-6xl mx-auto w-full pt-24 pb-8">
+      <div className="max-w-6xl mx-auto w-full pt-12 sm:pt-16 md:pt-24 pb-8"> {/* Reduced padding-top from pt-24 to pt-12 on mobile */}
         {/* Increased spacing between grid items with gap-12 (was gap-8) */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-12 md:gap-16 items-center">
           {/* Quote section with position higher on mobile */}
@@ -42,7 +42,8 @@ const HeroHeader: FC = () => {
             initial={{ opacity: 0, scale: 0.9 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ duration: 0.8, delay: 0.5 }}
-            className="order-2 md:order-2 relative pt-2 -mt-12 sm:-mt-16 md:mt-0 md:pt-0 md:pl-8 lg:pl-16" 
+            className="order-2 md:order-2 relative pt-2 -mt-16 sm:-mt-12 md:mt-0 md:pt-0 md:pl-8 lg:pl-16" 
+            /* Adjusted negative margin from -mt-12 sm:-mt-16 to -mt-16 */
             style={{ transform: `translateY(${yTransform * 0.5}px)` }}
           >
             <div className="space-y-4 text-center md:text-left p-8 border-l-4 border-amber-50 bg-gray-50/30">
