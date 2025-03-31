@@ -26,26 +26,29 @@ const Projects: FC<ProjectsProps> = ({ projects }) => {
           {projects.slice(0, 4).map((project, index) => (
             <motion.div 
               key={project.id} 
-              className="project-item" // Removed 'group' class that might trigger hover effects
+              className="project-item w-full mx-auto"
+              style={{ maxWidth: '350px' }} // Fixed size for all cards
               initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: "-100px" }}
               transition={{ duration: 0.6, delay: index * 0.2 }}
             >
               <Link href={`/project/${project.slug}`} className="block overflow-hidden">
-                <ProjectSlider project={project} disableHoverEffects={true} />
+                <div className="w-full aspect-square"> {/* Fixed aspect ratio */}
+                  <ProjectSlider project={project} disableHoverEffects={true} />
+                </div>
               </Link>
-              <div className="mt-4 flex justify-between items-start">
-                <div>
+              <div className="mt-4 h-[80px] flex justify-between items-start"> {/* Fixed height for text area */}
+                <div className="overflow-hidden">
                   <Link 
                     href={`/project/${project.slug}`}
-                    className="block text-lg sm:text-xl font-medium hover:underline"
+                    className="block text-lg font-medium hover:underline truncate"
                   >
                     {project.title}
                   </Link>
-                  <p className="text-sm sm:text-base text-gray-600">{project.description}</p>
+                  <p className="text-sm text-gray-600 line-clamp-2">{project.description}</p>
                 </div>
-                <span className="text-xs sm:text-sm text-gray-400">{project.year}</span>
+                <span className="text-xs text-gray-400 ml-2 whitespace-nowrap">{project.year}</span>
               </div>
             </motion.div>
           ))}
