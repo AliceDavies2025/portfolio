@@ -37,6 +37,93 @@ export default function ProjectPage({ project }: ProjectPageProps) {
   // Check if this is the freelance project (last one)
   const isFreelanceProject = project.id === projects.length;
 
+  // Determine grid layout based on number of images
+  const getGridClass = () => {
+    // For small screens - always 1 column
+    let gridClass = 'grid-cols-1 ';
+    
+    // For medium screens
+    if (uniqueImages.length === 4 || uniqueImages.length === 5) {
+      gridClass += 'sm:grid-cols-2 ';
+    } else {
+      gridClass += 'sm:grid-cols-2 ';
+    }
+    
+    // For large screens
+    if (uniqueImages.length === 4) {
+      gridClass += 'lg:grid-cols-2';
+    } else if (uniqueImages.length === 6) { 
+      gridClass += 'lg:grid-cols-3';
+    } else if (uniqueImages.length === 5) {
+      gridClass += 'lg:grid-cols-3'; // 3 columns for 5 images
+    } else if (isFreelanceProject) {
+      gridClass += 'lg:grid-cols-2';
+    } else {
+      gridClass += 'lg:grid-cols-3';
+    }
+    
+    return gridClass;
+  };
+
+  // Generate custom grid styling for different image counts
+  const gridStyle = () => {
+    const baseStyle = {
+      margin: '0 auto',
+      maxWidth: isFreelanceProject ? '1100px' : '1300px', // Increased container width to accommodate larger images
+    };
+    
+    // For 5 images: use flex layout (3 in first row, 2 centered in second row)
+    if (uniqueImages.length === 5) {
+      return {
+        ...baseStyle,
+        display: 'flex',
+        flexWrap: 'wrap',
+        justifyContent: 'center',
+        gap: '2rem',
+      };
+    }
+    
+    // For even number of images: use grid with evenly distributed rows
+    return {
+      ...baseStyle,
+      display: 'grid',
+      gridTemplateColumns: uniqueImages.length === 4 ? 'repeat(2, 1fr)' : 'repeat(3, 1fr)',
+      gap: '2.5rem', // Increased gap between larger images
+      justifyItems: 'center',
+      justifyContent: 'center',
+    };
+  };
+
+  // Helper to position items in the grid/flex layout
+  const getImageStyle = (index: number) => {
+    // Increase size for galleries with 4 or 5 images
+    const cardSize = uniqueImages.length === 4 || uniqueImages.length === 5 
+      ? { maxWidth: '450px', maxHeight: '450px' } 
+      : { maxWidth: '350px', maxHeight: '350px' };
+    
+    // Base style for all images
+    const baseStyle = {
+      width: '100%',
+      ...cardSize,
+    };
+    
+    // Only apply special styling for the 5-image case
+    if (uniqueImages.length === 5) {
+      // Add margins for flex layout
+      return {
+        ...baseStyle,
+        margin: '1rem',
+        // Special styling for second row items
+        ...(index >= 3 && {
+          margin: index === 3 ? '1rem 0.5rem 1rem 0' : '1rem 0 1rem 0.5rem',
+        }),
+      };
+    }
+    
+    // For grid layout, no special margins needed
+    return baseStyle;
+  };
+
   return (
     <div className={`min-h-screen ${geistSans.variable} ${geistMono.variable}`}>
       <Head>
@@ -106,48 +193,43 @@ export default function ProjectPage({ project }: ProjectPageProps) {
             <h1 className="text-2xl md:text-3xl font-light">{project.title}</h1>
           </motion.div>
 
-          {/* Image Gallery Grid - Adjust layout based on project type */}
-          <motion.div 
-            className={`grid grid-cols-1 ${
-              isFreelanceProject ? 'sm:grid-cols-2 lg:grid-cols-2 gap-8 md:gap-12' : 'sm:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8'
-            }`}
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ duration: 0.8 }}
-          >
-            {uniqueImages.map((image, index) => (
-              <motion.div 
-                key={index}
-                initial={{ opacity: 0, scale: 0.95 }}
-                animate={{ opacity: 1, scale: 1 }}
-                transition={{ duration: 0.6, delay: 0.1 * index }}
-                className={`w-full overflow-hidden cursor-pointer ${
-                  isFreelanceProject ? '' : '' // Removed aspect-[4/3] constraint
-                }`}
-                onClick={() => setSelectedImage(image)}
-              >
-                <div className="w-full relative flex items-center justify-center">
-                  <Image 
-                    src={image} 
-                    alt={`${project.title} - Gallery image ${index + 1}`}
-                    width={800}
-                    height={600}
-                    style={{ 
-                      maxWidth: '100%',
-                      height: 'auto',
-                      objectFit: "contain", 
-                      margin: '0 auto' // Center horizontally
-                    }}
-                    sizes={isFreelanceProject 
-                      ? "(max-width: 640px) 100vw, 50vw" 
-                      : "(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
-                    }
-                    quality={90}
-                  />
-                </div>
-              </motion.div>
-            ))}
-          </motion.div>
+          {/* Centered container for the image gallery */}
+          <div className="flex justify-center w-full">
+            <motion.div 
+              className="w-full"
+              style={gridStyle()}
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ duration: 0.8 }}
+            >
+              {uniqueImages.map((image, index) => (
+                <motion.div 
+                  key={index}
+                  initial={{ opacity: 0, scale: 0.95 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  transition={{ duration: 0.6, delay: 0.1 * index }}
+                  className="aspect-square overflow-hidden cursor-pointer bg-gray-50"
+                  style={getImageStyle(index)}
+                  onClick={() => setSelectedImage(image)}
+                >
+                  <div className="w-full h-full">
+                    <div className="relative w-full h-full">
+                      <Image 
+                        src={image} 
+                        alt={`${project.title} - Gallery image ${index + 1}`}
+                        fill
+                        style={{ 
+                          objectFit: "cover",
+                        }}
+                        sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 350px"
+                        quality={90}
+                      />
+                    </div>
+                  </div>
+                </motion.div>
+              ))}
+            </motion.div>
+          </div>
         </div>
       </section>
       

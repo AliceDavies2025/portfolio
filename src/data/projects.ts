@@ -35,7 +35,7 @@ export const projects: Project[] = [
       "/11/11.21.jpg",
       "/11/11.3.jpg",
       "/11/11.4.jpg",
-      "/11/11.5.jpg",
+      "/11/11.51.jpg",
       "/11/11.6.jpg"
     ]
   },
@@ -59,7 +59,7 @@ export const projects: Project[] = [
       "/12/12.21.jpg",
       "/12/12.3.jpg",
       "/12/1.1.png",
-      "/12/12.5.jpg",
+      "/12/12.51.jpg",
       "/12/1.2.png"
     ]
   },
@@ -83,7 +83,8 @@ export const projects: Project[] = [
       "/13/DSC_5616.jpg",
       "/13/DSC_5657-2.jpg",
       "/13/DSC_5770.jpg",
-      "/13/room 24 (1).png"
+      "/13/room 24 (1).png",
+      "/13/DSC_5664.jpg"
 
     ]
   },
