@@ -70,15 +70,15 @@ export default function ProjectPage({ project }: ProjectPageProps) {
     const baseStyle = {
       margin: '0 auto',
       maxWidth: isFreelanceProject ? '1100px' : '1300px', // Increased container width to accommodate larger images
-    };
+    } as const;
     
     // For 5 images: use flex layout (3 in first row, 2 centered in second row)
     if (uniqueImages.length === 5) {
       return {
         ...baseStyle,
-        display: 'flex',
-        flexWrap: 'wrap',
-        justifyContent: 'center',
+        display: 'flex' as const,
+        flexWrap: 'wrap' as const,
+        justifyContent: 'center' as const,
         gap: '2rem',
       };
     }
@@ -86,11 +86,11 @@ export default function ProjectPage({ project }: ProjectPageProps) {
     // For even number of images: use grid with evenly distributed rows
     return {
       ...baseStyle,
-      display: 'grid',
+      display: 'grid' as const,
       gridTemplateColumns: uniqueImages.length === 4 ? 'repeat(2, 1fr)' : 'repeat(3, 1fr)',
       gap: '2.5rem', // Increased gap between larger images
-      justifyItems: 'center',
-      justifyContent: 'center',
+      justifyItems: 'center' as const,
+      justifyContent: 'center' as const,
     };
   };
 

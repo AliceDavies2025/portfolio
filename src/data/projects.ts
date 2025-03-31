@@ -20,7 +20,7 @@ export const projects: Project[] = [
     title: "4 Bedroom Family Home",
     description: "",
     slug: "4-bedroom-family-home",
-    imageUrl: "/11/11.5.jpg",
+    imageUrl: "/11/11.51.jpg",
     year: "",
     location: "Nairobi, Kenya",
     area: "120 m²",
