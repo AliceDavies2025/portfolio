@@ -38,7 +38,7 @@ export default function ProjectsPage() {
             blending aesthetics with functionality.
           </p>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-12">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-12 justify-items-center">
             {projects.map((project, index) => {
               // Check if this is the last project (Freelance project)
               const isLastProject = index === projects.length - 1;
@@ -46,24 +46,28 @@ export default function ProjectsPage() {
               return (
                 <div 
                   key={project.id} 
-                  className={`project-card ${isLastProject ? 'md:col-span-2 lg:w-2/3 lg:mx-auto' : ''}`}
+                  className={`project-card ${isLastProject ? 'md:col-span-2' : ''}`}
+                  style={{ 
+                    maxWidth: '350px',
+                    width: '100%'
+                  }}
                 >
                   {/* The project card container - make entire card clickable */}
                   <Link href={`/project/${project.slug}`} className="block cursor-pointer group">
-                    {/* Slider with project images - no hover effects */}
-                    <div className="relative overflow-hidden">
-                      <ProjectSlider project={project} />
+                    {/* Slider with project images - fixed dimensions */}
+                    <div className="relative overflow-hidden aspect-square">
+                      <ProjectSlider project={project} disableHoverEffects={true} />
                     </div>
                     
-                    {/* Project info with clickable title */}
-                    <div className="mt-4 flex justify-between items-start">
-                      <div>
-                        <h3 className="block text-xl md:text-2xl font-medium group-hover:text-amber-800 transition-colors">
+                    {/* Project info with fixed height and text constraints */}
+                    <div className="mt-4 h-[80px] flex justify-between items-start">
+                      <div className="overflow-hidden">
+                        <h3 className="block text-lg font-medium group-hover:text-amber-800 transition-colors truncate">
                           {project.title}
                         </h3>
-                        <p className="text-gray-600">{project.description}</p>
+                        <p className="text-sm text-gray-600 line-clamp-2">{project.description}</p>
                       </div>
-                      <span className="text-sm text-gray-400">{project.year}</span>
+                      <span className="text-xs text-gray-400 ml-2 whitespace-nowrap">{project.year}</span>
                     </div>
                   </Link>
                 </div>

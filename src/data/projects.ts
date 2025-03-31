@@ -59,7 +59,7 @@ export const projects: Project[] = [
       "/12/12.21.jpg",
       "/12/12.3.jpg",
       "/12/1.1.png",
-      "/12/12.51.jpg",
+      "/12/1.4.png",
       "/12/1.2.png"
     ]
   },
